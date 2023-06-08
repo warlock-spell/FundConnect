@@ -10,4 +10,5 @@ app_name = 'core'
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('dev-guide/', views.dev_guide, name='dev-guide'),
 ]
