@@ -1,31 +1,37 @@
+{% load static %}
 <div class="flex h-screen bg-gray-100">
-  <div class="flex-shrink-0 w-64 bg-white shadow">
-    <!-- Sidebar content here -->
-    <div class="py-4 px-8">
-      <!-- Your sidebar content goes here -->
-      <ul class="space-y-4">
-        <li>
-          <a href="#" class="block text-gray-600 hover:text-gray-900">Dashboard</a>
-        </li>
-        <li>
-          <a href="#" class="block text-gray-600 hover:text-gray-900">Branches</a>
-        </li>
-        <li>
-          <a href="#" class="block text-gray-600 hover:text-gray-900">Apply for loan</a>
-        </li>
-        <li>
-          <a href="#" class="block text-gray-600 hover:text-gray-900">Fund Adjustment</a>
-        </li>
-        <li>
-          <a href="#" class="block text-gray-600 hover:text-gray-900">Member</a>
-        </li>
-        <!-- Add more sidebar items as needed -->
-      </ul>
+    <div class="flex-shrink-0 w-64 bg-white shadow">
+        <!-- Sidebar content here -->
+        <div class="py-4 px-8">
+            <!-- Your sidebar content goes here -->
+            <ul class="space-y-4">
+                <li>
+                    <a href="{% url "core:home" %}" class="block text-gray-600 hover:text-gray-900">Home</a>
+                </li>
+                <li>
+                    <a href="#" class="block text-gray-600 hover:text-gray-900">Dashboard</a>
+                </li>
+                <li>
+                    <a href="{% url "branch:branch-home" %}"
+                       class="block text-gray-600 hover:text-gray-900">Branches</a>
+                </li>
+                <li>
+                    <a href="#" class="block text-gray-600 hover:text-gray-900">Apply for loan</a>
+                </li>
+                <li>
+                    <a href="#" class="block text-gray-600 hover:text-gray-900">Fund Adjustment</a>
+                </li>
+                <li>
+                    <a href="#" class="block text-gray-600 hover:text-gray-900">Member</a>
+                </li>
+                <li>
+                    <a href="#" class="block text-gray-600 hover:text-gray-900">User's Guide</a>
+                </li>
+                <li>
+                    <a href="#" class="block text-gray-600 hover:text-gray-900">Developer's Guide</a>
+                </li>
+                <!-- Add more sidebar items as needed -->
+            </ul>
+        </div>
+
     </div>
-  </div>
-  <div class="flex-1 p-8">
-    <!-- Main content here -->
-    <h1 class="text-2xl font-bold mb-4">Main Content</h1>
-    <!-- Rest of your page content goes here -->
-  </div>
-</div>

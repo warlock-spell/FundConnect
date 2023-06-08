@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block title %} List of Branches {% endblock %}
+{% block heading %} List of Branches {% endblock %}
+{% block content %}
+    <div class="container mx-auto px-4 py-8">
+        {#        <h1 class="text-3xl font-bold mb-6">List of Branches</h1>#}
+
+        <ul class="space-y-4">
+            {% for branch in branches %}
+                <li class="flex items-center space-x-4">
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold">{{ branch.name }}</h2>
+                        <p class="text-gray-500">{{ branch.location }}</p>
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        {{ branch.member_count }} Members
+                    </div>
+                </li>
+            {% empty %}
+                <li>No branches available</li>
+                <a href="{% url "branch:branch-create" %}"
+                   class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+                    Add a New Branch
+                </a>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

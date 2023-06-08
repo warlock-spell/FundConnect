@@ -9,4 +9,6 @@ app_name = 'branch'
 
 urlpatterns = [
     path('', views.home, name='branch-home'),
+    path('create/', views.create_branch, name='branch-create'),
+    path('list/', views.list_branch, name='branch-list'),
 ]

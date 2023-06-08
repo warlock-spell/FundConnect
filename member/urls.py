@@ -8,5 +8,5 @@ from . import views
 app_name = 'member'
 
 urlpatterns = [
-    path('', views.home, name='member-home'),
+    # path('', views.home, name='member-home'),
 ]

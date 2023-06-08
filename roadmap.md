@@ -16,3 +16,4 @@
   - [x] Branch list
   - [x] For each Branch, expected draft for current month
   - [x] For each Branch, auto create entry if approved 
+  - [x] Add Branch

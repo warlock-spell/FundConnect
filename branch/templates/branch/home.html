@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Manage Branch{% endblock %}
+{% block heading %} Manage Branch {% endblock %}
+{% block content %}
+    <div class="flex justify-center items-center">
+        <div class="space-y-4">
+            {#            <h1 class="text-3xl font-bold mb-4">Branch Home</h1>#}
+            <div class="flex flex-col space-y-4">
+                <div class="flex flex-row space-x-4">
+                    <a href="{% url "branch:branch-create" %}"
+                       class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+                        Add a New Branch
+                    </a>
+                    <a href="#" class="bg-yellow-500 hover:bg-yellow-700 text-white py-2 px-4 rounded">
+                        Edit Existing Branch
+                    </a>
+                    <a href="#" class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">
+                        Remove a Branch
+                    </a>
+                </div>
+                
+                <a href="#" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">
+                    Create Draft
+                </a>
+                <a href="#" class="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded">
+                    Create Entry
+                </a>
+                <a href="{% url "branch:branch-list" %}"
+                   class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded">
+                    List All Branches
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
