@@ -1,0 +1,65 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block heading %}Dashboard{% endblock %}
+
+{% block content %}
+    <div>
+        <h1 class="text-3xl font-bold mb-6">Dashboard</h1>
+
+        <form method="post" action="{% url 'dashboard:dashboard-home' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- First three entries -->
+            <div class="mb-4">
+                <label for="{{ form.name.id_for_label }}" class="font-bold">Name</label>
+                {{ form.name }}
+            </div>
+            <div class="mb-4">
+                <label for="{{ form.email.id_for_label }}" class="font-bold">Email</label>
+                {{ form.email }}
+            </div>
+            <div class="mb-4">
+                <label for="{{ form.refund_on_exit.id_for_label }}" class="font-bold">NRD</label>
+                {{ form.refund_on_exit }}
+            </div>
+
+            <!-- Last six entries -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="mb-4">
+                    <label for="{{ form.dividend_interest.id_for_label }}" class="font-bold">Dividend Interest in
+                        %</label>
+                    {{ form.dividend_interest }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.pay_off_period_of_dividend.id_for_label }}" class="font-bold">Pay Off Period of
+                        Dividend in Months</label>
+                    {{ form.pay_off_period_of_dividend }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.loan_interest.id_for_label }}" class="font-bold">Loan Interest in %</label>
+                    {{ form.loan_interest }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.loan_interest_period.id_for_label }}" class="font-bold">Loan Interest Period in
+                        Months</label>
+                    {{ form.loan_interest_period }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.service_fee_interest.id_for_label }}" class="font-bold">Service Fee Interest in
+                        %</label>
+                    {{ form.service_fee_interest }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.service_fee_period.id_for_label }}" class="font-bold">Service Fee Period in
+                        Months</label>
+                    {{ form.service_fee_period }}
+                </div>
+            </div>
+
+            <div class="flex justify-end mt-6">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Save</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
