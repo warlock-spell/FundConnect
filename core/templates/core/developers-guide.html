@@ -6,17 +6,62 @@
     <div class="mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-6">Developer's Guide</h1>
 
-        <p class="text-base mb-4">This web application, FundConnect, is created by Daksh Gaur.</p>
-        <p class="text-base mb-4">For more information, you can visit <a href="https://www.daksh.fyi"
-                                                                         class="text-blue-500 hover:text-blue-700">www.daksh.fyi</a>.
+        <p class="mb-4">
+            This web application, <span class="text-red-900 text-2xl">FundConnect</span>, is created by Daksh Gaur.
         </p>
-        <p class="text-base mb-4">To contact Daksh Gaur, you can send an email to <a href="mailto:hi@daksh.fyi"
-                                                                                     class="text-blue-500 hover:text-blue-700">hi@daksh.fyi</a>.
+        <p class="text-base mb-4">
+            For more information, you can visit
+            <a href="https://www.daksh.fyi" class="text-blue-500 hover:text-blue-700 underline">www.daksh.fyi</a>.
         </p>
-        <p class="text-base mb-4">The source code for this app can be found on GitHub at <a
-                href="https://github.com/warlock-spell/FundConnect" class="text-blue-500 hover:text-blue-700">github.com/warlock-spell/FundConnect</a>.
+        <p class="text-base mb-4">
+            To contact Daksh Gaur, you can send an email to
+            <a href="mailto:hi@daksh.fyi" class="text-blue-500 hover:text-blue-700 underline">hi@daksh.fyi</a>.
         </p>
-        <p class="text-base">This app is built with Django and Tailwind CSS. Contributions are welcome and appreciated.
-            Feel free to contribute to the development of this app.</p>
+        <p class="text-base mb-4">
+            The source code for this app can be found on GitHub at
+            <a href="https://github.com/warlock-spell/FundConnect" class="text-blue-500 hover:text-blue-700 underline">github.com/warlock-spell/FundConnect</a>.
+        </p>
+        <p class="text-base">
+            This app is built with Django and Tailwind CSS. Contributions are welcome and appreciated.
+            Feel free to contribute to the development of this app.
+        </p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">Setting Up the Project Locally</h2>
+
+        <ol class="list-decimal pl-6 mb-4">
+            <li class="mb-2">
+                Clone the repository using the following command:
+                <code class="bg-gray-100 px-2 py-1 rounded font-mono">git clone
+                    https://github.com/warlock-spell/FundConnect.git</code>
+            </li>
+            <li class="mb-2">
+                Navigate to the project directory:
+                <code class="bg-gray-100 px-2 py-1 rounded font-mono">cd FundConnect</code>
+            </li>
+            <li class="mb-2">
+                Create a virtual environment (optional but recommended):
+                <code class="bg-gray-100 px-2 py-1 rounded font-mono">python3 -m venv env</code>
+            </li>
+            <li class="mb-2">
+                Activate the virtual environment:
+                <code class="bg-gray-100 px-2 py-1 rounded font-mono">source env/bin/activate</code>
+            </li>
+            <li class="mb-2">
+                Install the project dependencies:
+                <code class="bg-gray-100 px-2 py-1 rounded font-mono">pip install -r requirements.txt</code>
+            </li>
+            <li class="mb-2">
+                Apply database migrations:
+                <code class="bg-gray-100 px-2 py-1 rounded font-mono">python manage.py migrate</code>
+            </li>
+            <li class="mb-2">
+                Run the development server:
+                <code class="bg-gray-100 px-2 py-1 rounded font-mono">python manage.py runserver</code>
+            </li>
+            <li>
+                Open your web browser and visit <code class="bg-gray-100 px-2 py-1 rounded font-mono">http://localhost:8000</code>
+                to access the application.
+            </li>
+        </ol>
     </div>
 {% endblock %}

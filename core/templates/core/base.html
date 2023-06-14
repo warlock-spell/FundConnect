@@ -4,17 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "output.css" %}">
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
     <title>{% block title %} {% endblock %}</title>
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .content {
+            height: 100%;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 <body>
-{% include "core/includes/sidebar.html" %}
-<div class="flex-1 p-8">
-    <!-- Main content here -->
-    <h1 class="text-2xl font-bold mb-4">{% block heading %} {% endblock %}</h1>
-    <!-- Rest of your page content goes here -->
-    <div class="px-6 py-6">
-        {% block content %} {% endblock %}
+<div class="flex h-screen">
+    {% include "core/includes/sidebar.html" %}
+    <div class="flex-1 p-8">
+        <!-- Main content here -->
+        <h1 class="text-2xl font-bold mb-4">{% block heading %} {% endblock %}</h1>
+        <!-- Rest of your page content goes here -->
+        <div class="content">
+            <div class="px-6 py-6">
+                {% block content %} {% endblock %}
+            </div>
+        </div>
     </div>
 </div>
 </body>
