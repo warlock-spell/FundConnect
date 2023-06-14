@@ -4,8 +4,8 @@
 {% block heading %}Dashboard{% endblock %}
 
 {% block content %}
-    <div>
-        <h1 class="text-3xl font-bold mb-6">Dashboard</h1>
+    <div class="max-w-full mx-auto bg-gray-200 p-6 rounded-lg shadow-lg">
+        {#        <h1 class="text-3xl font-bold mb-6">Dashboard</h1>#}
 
         <form method="post" action="{% url 'dashboard:dashboard-home' %}" enctype="multipart/form-data">
             {% csrf_token %}
@@ -57,9 +57,19 @@
                 </div>
             </div>
 
+            {% if form.errors or form.non_field_errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for field in form %}
+                        {{ field.errors }}
+                    {% endfor %}
+
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
             <div class="flex justify-end mt-6">
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Save</button>
             </div>
         </form>
-    </div>
+    </>
 {% endblock %}
