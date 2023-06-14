@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Edit Branch{% endblock %}
+{% block heading %}Edit Branch{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto px-4 py-8 max-w-full mx-auto bg-gray-200 rounded-lg shadow-lg">
+        <p class="text-center text-2xl font-bold text-red-900">Warning! Deleting a branch will also delete all the data
+            associated to the members of that branch. Are you sure you want to delete any branch?</p>
+        <p class="text-center text-md font-bold text-black"> If yes, then
+            login to admin portal to delete the branch. To access admin portal visit home-link/admin and enter the
+            credentials.</p>
+    </div>
+{% endblock %}

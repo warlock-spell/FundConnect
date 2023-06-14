@@ -1,36 +1,78 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% block title %}Manage Branch{% endblock %}
-{% block heading %} Manage Branch {% endblock %}
+{% block heading %}Manage Branch{% endblock %}
 {% block content %}
     <div class="flex justify-center items-center">
-        <div class="space-y-4">
-            {#            <h1 class="text-3xl font-bold mb-4">Branch Home</h1>#}
+        <div class="space-y-4 container mx-auto px-4 py-8 max-w-xl mx-auto bg-gray-200 rounded-lg shadow-lg">
             <div class="flex flex-col space-y-4">
                 <div class="flex flex-row space-x-4">
-                    <a href="{% url "branch:branch-create" %}"
-                       class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+                    <a href="{% url "branch:branch-create" %}" class="btn btn-blue">
                         Add a New Branch
                     </a>
-                    <a href="#" class="bg-yellow-500 hover:bg-yellow-700 text-white py-2 px-4 rounded">
+                    <a href="{% url 'branch:branch-edit' %}" class="btn btn-yellow">
                         Edit Existing Branch
                     </a>
-                    <a href="#" class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">
+                    <a href="{% url "branch:branch-remove" %}" class="btn btn-red">
                         Remove a Branch
                     </a>
                 </div>
-                
-                <a href="#" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">
+                <a href="{% url "branch:branch-list" %}" class="btn btn-gray">
+                    List All Branches
+                </a>
+                <a href="#" class="btn btn-green">
                     Create Draft
                 </a>
-                <a href="#" class="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded">
+                <a href="#" class="btn btn-purple">
                     Create Entry
-                </a>
-                <a href="{% url "branch:branch-list" %}"
-                   class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded">
-                    List All Branches
                 </a>
             </div>
         </div>
     </div>
+    <style>
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-blue {
+            background-color: #3B82F6;
+            color: #FFFFFF;
+        }
+
+        .btn-yellow {
+            background-color: #F59E0B;
+            color: #FFFFFF;
+        }
+
+        .btn-red {
+            background-color: #EF4444;
+            color: #FFFFFF;
+        }
+
+        .btn-green {
+            background-color: #10B981;
+            color: #FFFFFF;
+        }
+
+        .btn-purple {
+            background-color: #8B5CF6;
+            color: #FFFFFF;
+        }
+
+        .btn-gray {
+            background-color: #9CA3AF;
+            color: #FFFFFF;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+    </style>
 {% endblock %}

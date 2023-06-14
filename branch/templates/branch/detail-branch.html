@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+
+{#Not in use, but kept for reference#}
+
+{% block title %}View Branch{% endblock %}
+{% block heading %}View Branch{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">View Branch</h1>
+
+        <ul>
+            <table class="w-full">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Manager<</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ branch.name }}</td>
+                    <td>{{ branch.location }}</td>
+                    <td>{{ branch.manager }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </ul>
+    </div>
+{% endblock %}

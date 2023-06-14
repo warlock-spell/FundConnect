@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Edit Branch{% endblock %}
+{% block heading %}Edit Branch{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto px-4 py-8 max-w-full mx-auto bg-gray-200 rounded-lg shadow-lg">
+        {#        <h1 class="text-3xl font-bold mb-6">Edit Branch</h1>#}
+
+        <ul>
+            <table class="w-full border-collapse">
+                <colgroup>
+                    <col style="width: 45%;">
+                    <col style="width: 45%;">
+                    <col style="width: 10%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th class="border-4 border-gray-500 px-4 py-2">Name</th>
+                    <th class="border-4 border-gray-500 px-4 py-2">Location</th>
+                    <th class="border-4 border-gray-500 px-4 py-2">Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for branch in branches %}
+                    <tr>
+                        <td class="border border-gray-500 px-4 py-2">{{ branch.name }}</td>
+                        <td class="border border-gray-500 px-4 py-2">{{ branch.location }}</td>
+                        <td class="border border-gray-500 px-4 py-2">
+                            <a href="{% url 'branch:branch-edit-pk' branch.id %}"
+                               class="inline-block bg-blue-500 hover:bg-blue-700 text-white py-2 px-6 rounded">Edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </ul>
+    </div>
+{% endblock %}

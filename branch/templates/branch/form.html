@@ -1,12 +1,12 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Create Branch{% endblock %}
-{% block heading %}Create Branch{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <div class="max-w-md mx-auto bg-gray-200 p-6 rounded-lg shadow-lg">
-        {#        <h1 class="text-3xl font-bold mb-4">Create Branch</h1>#}
+    <h1 class="mb-6 text-3xl">{{ title }}</h1>
 
+    <div class="max-w-md mx-auto bg-gray-200 p-6 rounded-lg shadow-lg">
+        {#  enctype is for file upload  #}
         <form method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}
 
@@ -23,12 +23,12 @@
                 {{ form.location }}
             </div>
             <div class="mb-4">
-                <label for="{{ form.manager.id_for_label }}" class="font-bold">Branch Manager (Optional)</label>
+                <label for="{{ form.manager.id_for_label }}" class="font-bold">Branch Manager</label>
                 {{ form.manager }}
             </div>
 
             {% if form.errors or form.non_field_errors %}
-                <div class="mb-4 p-4 bg-red-100 rounded-xl">
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
                     {% for field in form %}
                         {{ field.errors }}
                     {% endfor %}
@@ -37,7 +37,9 @@
                 </div>
             {% endif %}
 
-            <button class="mt-6 py-2 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+
+            <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded space-y-6">Submit</button>
+
         </form>
     </div>
 {% endblock %}

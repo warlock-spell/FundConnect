@@ -7,17 +7,28 @@ from django import forms
 from .models import Branch
 
 # styling
-FORM_INPUT = 'w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500'
-FORM_SELECT = 'w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500'
-FORM_CHECKBOX = 'form-checkbox text-blue-500'
+INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
 
 
 class BranchForm(forms.ModelForm):
     class Meta:
         model = Branch
         fields = ('name', 'location', 'manager')
+        labels = {'name': 'Name', 'location': 'Location', 'manager': 'Manager'}
         widgets = {
-            'name': forms.TextInput(attrs={'class': FORM_INPUT}),
-            'location': forms.TextInput(attrs={'class': FORM_INPUT}),
-            'manager': forms.TextInput(attrs={'class': FORM_INPUT}),
+            'name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'location': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'manager': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+        }
+
+
+class EditBranchForm(forms.ModelForm):
+    class Meta:
+        model = Branch
+        fields = ('name', 'location', 'manager')
+        labels = {'name': 'Name', 'location': 'Location', 'manager': 'Manager'}
+        widgets = {
+            'name': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'location': forms.TextInput(attrs={'class': INPUT_CLASSES}),
+            'manager': forms.TextInput(attrs={'class': INPUT_CLASSES}),
         }
