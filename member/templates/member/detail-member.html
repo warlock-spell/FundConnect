@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+{% block title %}Member Details{% endblock %}
+{% block heading %}Member Details - {{ member.name }}{% endblock %}
+{% block content %}
+    <div class="container mx-auto px-4 py-8 max-w-full mx-auto bg-gray-200 rounded-lg shadow-lg">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="mb-4">
+                <label class="font-bold">Membership No.</label>
+                <p>{{ member.id }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Name</label>
+                <p>{{ member.name }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Branch</label>
+                <p>{{ member.branch }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Position</label>
+                <p>{{ member.position }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Monthly Salary</label>
+                <p>{{ member.monthly_salary }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Monthly Deposit</label>
+                <p>{{ member.wish_to_deposit }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Accumulated NRD</label>
+                <p>{{ member.refund_on_exit }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Deposit Balance</label>
+                <p>{{ member.deposits }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Issued Loan Amount</label>
+                <p>{{ member.loan }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Share Holding Amount</label>
+                <p>{{ member.share_holding }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Membership Status</label>
+                <p>{{ member.active_user }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

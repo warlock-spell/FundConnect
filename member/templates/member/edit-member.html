@@ -1,0 +1,67 @@
+<!-- member_search.html -->
+{% extends 'core/base.html' %}
+{% block title %}Edit Member{% endblock %}
+{% block heading %}Member Search{% endblock %}
+{% block content %}
+    <div class="container mx-auto px-4 py-8 max-w-full mx-auto bg-gray-200 rounded-lg shadow-lg">
+        <div class="flex justify-center items-center">
+            <div>
+                <form method="GET" action="">
+                    {#                    {{ form.as_p }}#}
+                    <div class="mb-4">
+                        <label for="{{ form.search_query.id_for_label }}" class="font-bold">Search</label>
+                        {{ form.search_query }}
+                    </div>
+                    <div class="mb-4">
+                        <label for="{{ form.branch.id_for_label }}" class="font-bold">Branch</label>
+                        {{ form.branch }}
+                    </div>
+                    <div class="flex justify-center">
+                        <button type="submit"
+                                class="inline-block bg-blue-500 hover:bg-blue-700 text-white py-2 px-6 rounded">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold mb-4">Filtered Members:</h2>
+            {% if members %}
+                <ul>
+                    <table class="w-full border-collapse">
+                        <colgroup>
+                            <col style="width: 45%;">
+                            <col style="width: 45%;">
+                            <col style="width: 10%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th class="border-4 border-gray-500 px-4 py-2">Membership No.</th>
+                            <th class="border-4 border-gray-500 px-4 py-2">Name</th>
+                            <th class="border-4 border-gray-500 px-4 py-2">Edit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for member in members %}
+                            {% if member.active_user %}
+                                <tr>
+                                    <td class="border border-gray-500 px-4 py-2">{{ member.id }}</td>
+                                    <td class="border border-gray-500 px-4 py-2">{{ member.name }}</td>
+                                    <td class="border border-gray-500 px-4 py-2">
+                                        <a href="{% url 'member:member-edit-pk' member.id %}"
+                                           class="inline-block bg-blue-500 hover:bg-blue-700 text-white py-2 px-6 rounded">Edit</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </ul>
+            {% else %}
+                <p>No members found.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

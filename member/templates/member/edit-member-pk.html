@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Edit Member{% endblock %}
+{% block heading %}Edit Member{% endblock %}
+
+{% block content %}
+    <div class="max-w-full mx-auto bg-gray-200 p-6 rounded-lg shadow-lg">
+        {#        <h1 class="text-3xl font-bold mb-6">Dashboard</h1>#}
+
+        <form method="post" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- First three entries -->
+
+
+            <!-- Last six entries -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="mb-4">
+                    <label for="{{ form.id.id_for_label }}" class="font-bold">Membership No.</label>
+                    {{ form.id }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.name.id_for_label }}" class="font-bold">Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.branch.id_for_label }}" class="font-bold">Branch</label>
+                    {{ form.branch }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.position.id_for_label }}" class="font-bold">Position</label>
+                    {{ form.position }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.monthly_salary.id_for_label }}" class="font-bold">Monthly Salary</label>
+                    {{ form.monthly_salary }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.wish_to_deposit.id_for_label }}" class="font-bold">Monthly Deposit</label>
+                    {{ form.wish_to_deposit }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.refund_on_exit.id_for_label }}" class="font-bold">Accumulated NRD</label>
+                    {{ form.refund_on_exit }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.deposits.id_for_label }}" class="font-bold">Deposit Balance</label>
+                    {{ form.deposits }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.loan.id_for_label }}" class="font-bold">Issued Loan amount</label>
+                    {{ form.loan }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.share_holding.id_for_label }}" class="font-bold">Share Holding Amount</label>
+                    {{ form.share_holding }}
+                </div>
+            </div>
+
+            {% if form.errors or form.non_field_errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for field in form %}
+                        {{ field.errors }}
+                    {% endfor %}
+
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="flex justify-end mt-6">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Save</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
