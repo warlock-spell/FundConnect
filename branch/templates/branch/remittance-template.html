@@ -1,0 +1,54 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+</head>
+{% for branch in branches %}
+    {% if branch.members.all %}
+        <div>
+            <div class="flex flex-col items-center justify-center">
+                <h1 class="text-4xl font-bold mb-4">Branch Name: {{ branch.name }}</h1>
+                <p class="text-xl mb-2">Branch Location: {{ branch.location }}</p>
+                <p class="text-xl mb-2">Remittance for: {{ month }}, {{ year }}</p>
+            </div>
+
+            <div class="mt-4"></div> <!-- Add line space here -->
+            <div class="max-w-full mx-auto">
+                <table class="border-collapse border">
+                    <thead>
+                    <tr>
+                        <th class="border p-2">Member ID</th>
+                        <th class="border p-2">Member Name</th>
+                        <th class="border p-2">NRD</th>
+                        <th class="border p-2">Wish to Deposit Amount</th>
+                        <th class="border p-2">Loan EMI</th>
+                        <th class="border p-2">Loan Interest</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for member in branch.members.all %}
+                        {% if member.active_user %}
+                            <tr>
+                                <td class="border p-2">{{ member.id }}</td>
+                                <td class="border p-2">{{ member.name }}</td>
+                                <td class="border p-2">{{ controller.refund_on_exit_monthly_deposit }}</td>
+                                <td class="border p-2">{{ member.wish_to_deposit }}</td>
+                                <td class="border p-2">{{ loan_emi|get_item:member.id }}</td>
+                                <td class="border p-2">{{ loan_interest|get_item:member.id }}</td>
+                            </tr> {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add a page break after each branch's data -->
+        <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+
+</html>

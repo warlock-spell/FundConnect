@@ -20,8 +20,8 @@
                 {{ form.email }}
             </div>
             <div class="mb-4">
-                <label for="{{ form.refund_on_exit.id_for_label }}" class="font-bold">NRD</label>
-                {{ form.refund_on_exit }}
+                <label for="{{ form.refund_on_exit_monthly_deposit.id_for_label }}" class="font-bold">NRD</label>
+                {{ form.refund_on_exit_monthly_deposit }}
             </div>
 
             <!-- Last six entries -->
@@ -54,6 +54,18 @@
                     <label for="{{ form.service_fee_period.id_for_label }}" class="font-bold">Service Fee Period in
                         Months</label>
                     {{ form.service_fee_period }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.loan_monthly_salary_ratio_limit.id_for_label }}" class="font-bold">Service Fee
+                        Period in
+                        Months</label>
+                    {{ form.loan_monthly_salary_ratio_limit }}
+                </div>
+                <div class="mb-4">
+                    <label for="{{ form.loan_share_holding_ratio_limit.id_for_label }}" class="font-bold">Service Fee
+                        Period in
+                        Months</label>
+                    {{ form.loan_share_holding_ratio_limit }}
                 </div>
             </div>
 

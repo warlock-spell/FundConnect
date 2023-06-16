@@ -18,7 +18,8 @@ class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = (
-            'id', 'name', 'branch', 'position', 'monthly_salary', 'wish_to_deposit', 'refund_on_exit', 'deposits',
+            'id', 'name', 'branch', 'position', 'monthly_salary', 'wish_to_deposit', 'refund_on_exit',
+            'deposits',
             'loan',
             'share_holding')
         widgets = {
@@ -39,7 +40,8 @@ class EditMemberForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = (
-            'id', 'name', 'branch', 'position', 'monthly_salary', 'wish_to_deposit', 'refund_on_exit', 'deposits',
+            'id', 'name', 'branch', 'position', 'monthly_salary', 'wish_to_deposit', 'refund_on_exit',
+            'deposits',
             'loan',
             'share_holding', 'active_user')
         widgets = {

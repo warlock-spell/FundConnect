@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Remittance Form{% endblock %}
+{% block heading %}Remittance Form{% endblock %}
+
+{% block content %}
+    <div class="max-w-full mx-auto bg-gray-200 p-6 rounded-lg shadow-lg">
+        <form method="POST" action="." target="_blank">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="id_month" class="font-bold">Month (MM)</label>
+                <input type="number" name="month" id="id_month" required>
+            </div>
+            <div class="mb-4">
+                <label for="id_year" class="font-bold">Year (YYYY)</label>
+                <input type="number" name="year" id="id_year" required>
+            </div>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Generate</button>
+        </form>
+    </div>
+{% endblock %}
