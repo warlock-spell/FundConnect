@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h1 class="mb-6 text-3xl">{{ title }}</h1>
+
+    <div class="max-w-md mx-auto bg-gray-200 p-6 rounded-lg shadow-lg">
+        {#  enctype is for file upload  #}
+        <form method="post" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {#            <div class="space-y-6">#}
+            {#                {{ form.as_p }}#}
+            {#            </div>#}
+
+            <div class="mb-4">
+                <label for="{{ form.name.id_for_label }}" class="font-bold">Branch Name</label>
+                {{ form.name }}
+            </div>
+            <div class="mb-4">
+                <label for="{{ form.location.id_for_label }}" class="font-bold">Location</label>
+                {{ form.location }}
+            </div>
+            <div class="mb-4">
+                <label for="{{ form.manager.id_for_label }}" class="font-bold">Branch Manager</label>
+                {{ form.manager }}
+            </div>
+
+            {% if form.errors or form.non_field_errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for field in form %}
+                        {{ field.errors }}
+                    {% endfor %}
+
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+
+            <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded space-y-6">Submit</button>
+
+        </form>
+    </div>
+{% endblock %}

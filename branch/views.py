@@ -52,7 +52,7 @@ def edit_selected_branch(request, pk):
     else:
         form = EditBranchForm(instance=branch)
 
-    return render(request, 'branch/form.html', {
+    return render(request, 'branch/edit-branch-pk.html', {
         'form': form,
         'title': 'Edit branch',
     })
