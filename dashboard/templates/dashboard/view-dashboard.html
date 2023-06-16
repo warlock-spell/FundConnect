@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+
+{% block title %}View Controller{% endblock %}
+{% block heading %}View Controller{% endblock %}
+
+{% block content %}
+    <div class="max-w-full mx-auto bg-gray-200 p-6 rounded-lg shadow-lg">
+        <div class="mb-4">
+            <label class="font-bold">Name</label>
+            <p>{{ controller.name }}</p>
+        </div>
+        <div class="mb-4">
+            <label class="font-bold">Email</label>
+            <p>{{ controller.email }}</p>
+        </div>
+        <div class="mb-4">
+            <label class="font-bold">NRD</label>
+            <p>{{ controller.refund_on_exit }}</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="mb-4">
+                <label class="font-bold">Dividend Interest in %</label>
+                <p>{{ controller.dividend_interest }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Pay Off Period of Dividend in Months</label>
+                <p>{{ controller.pay_off_period_of_dividend }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Loan Interest in %</label>
+                <p>{{ controller.loan_interest }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Loan Interest Period in Months</label>
+                <p>{{ controller.loan_interest_period }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Service Fee Interest in %</label>
+                <p>{{ controller.service_fee_interest }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="font-bold">Service Fee Period in Months</label>
+                <p>{{ controller.service_fee_period }}</p>
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-6">
+            <a href="{% url 'dashboard:dashboard-edit' %}"
+               class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Edit</a>
+        </div>
+    </div>
+{% endblock %}
