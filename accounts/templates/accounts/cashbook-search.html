@@ -1,0 +1,27 @@
+<!-- cashbook_entry_search.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Cashbook Entry Search{% endblock %}
+{% block heading %}Cashbook Entry Search{% endblock %}
+
+{% block content %}
+    <div class="max-w-full mx-auto bg-gray-200 p-6 rounded-lg shadow-lg">
+        <form method="post" action=".">
+            {% csrf_token %}
+
+            <div class="mb-4">
+                <label for="member_id" class="font-bold">Membership No.</label>
+                <input type="text" name="member_id" id="member_id" class="w-full py-4 px-6 rounded-xl border">
+            </div>
+
+            <div class="mb-4">
+                <label for="financial_year" class="font-bold">Financial Year (Format: 20YY-YY)</label>
+                <input type="text" name="financial_year" id="financial_year" class="w-full py-4 px-6 rounded-xl border">
+            </div>
+
+            <div class="flex justify-end mt-6">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Search</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

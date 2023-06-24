@@ -1,0 +1,79 @@
+<!-- cashbook_entry_list.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Cashbook Entry List{% endblock %}
+{% block heading %}{{ member.name }}'s Cashbook for Financial Year: {{ financial_year }}{% endblock %}
+
+{% block content %}
+    <div class="max-w-full mx-auto bg-gray-200 p-6 rounded-lg shadow-lg">
+        <div class="flex justify-between mb-6">
+            <div>
+                <h2 class="text-2xl font-semibold">{{ member.name }}</h2>
+                <p class="text-gray-500">Membership No.: {{ member.id }}</p>
+                <p class="text-gray-500">Branch: {{ member.branch }}</p>
+            </div>
+            <div>
+                <h2 class="text-2xl font-semibold">Financial Year: {{ financial_year }}</h2>
+            </div>
+        </div>
+
+        {% if cashbook_entries %}
+            <table class="w-full mt-6">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Membership No.</th>
+                    <th>Entry</th>
+                    <th>NRD Credit</th>
+                    <th>NRD Debit</th>
+                    <th>Deposits Credit</th>
+                    <th>Deposits Debit</th>
+                    <th>Loan Credit</th>
+                    <th>Loan Debit</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entry in cashbook_entries %}
+                    <tr>
+                        <td class="text-center">{{ entry.date }}/{{ entry.month }}/{{ entry.year }}</td>
+                        <td class="text-center">{{ entry.member_id }}</td>
+                        <td class="text-center">{{ entry.fund_type }}</td>
+                        {% if entry.refund_on_exit_amount > 0 %}
+                            <td class="text-center">{{ entry.refund_on_exit_amount }}</td>
+                            <td class="text-center">---</td>
+                        {% elif entry.refund_on_exit_amount == 0 %}
+                            <td class="text-center">---</td>
+                            <td class="text-center">---</td>
+                        {% else %}
+                            <td class="text-center">---</td>
+                            <td class="text-center">{{ entry.refund_on_exit_amount }}</td>
+                        {% endif %}
+                        {% if entry.deposits_amount > 0 %}
+                            <td class="text-center">{{ entry.deposits_amount }}</td>
+                            <td class="text-center">---</td>
+                        {% elif entry.deposits_amount == 0 %}
+                            <td class="text-center">---</td>
+                            <td class="text-center">---</td>
+                        {% else %}
+                            <td class="text-center">---</td>
+                            <td class="text-center">{{ entry.deposits_amount }}</td>
+                        {% endif %}
+                        {% if entry.loan_amount < 0 %}
+                            <td class="text-center">{{ entry.loan_amount }}</td>
+                            <td class="text-center">---</td>
+                        {% elif entry.loan_amount == 0 %}
+                            <td class="text-center">---</td>
+                            <td class="text-center">---</td>
+                        {% else %}
+                            <td class="text-center">---</td>
+                            <td class="text-center">{{ entry.loan_amount }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No cashbook entries found.</p>
+        {% endif %}
+    </div>
+{% endblock %}
