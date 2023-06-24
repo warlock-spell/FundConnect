@@ -50,6 +50,7 @@ def edit_selected_member(request, pk):
         form = EditMemberForm(request.POST, instance=member)
 
         if form.is_valid():
+            member.active_user = True
             form.save()
 
             return redirect('member:member-edit')
