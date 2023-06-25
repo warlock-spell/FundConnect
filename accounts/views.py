@@ -95,14 +95,27 @@ def search_cashbook(request):
 
 
 def transaction_by_date(request, date, month, year):
-    cashbook_entries = CashBookEntry.objects.filter(
-        year=year,
-        month=month,
-        date=date
-    )
+    if int(month) == 0:
+        cashbook_entries = CashBookEntry.objects.filter(
+            year=year,
+        )
+    elif int(date) == 0:
+        cashbook_entries = CashBookEntry.objects.filter(
+            year=year,
+            month=month
+        )
+    else:
+        cashbook_entries = CashBookEntry.objects.filter(
+            year=year,
+            month=month,
+            date=date
+        )
 
     context = {
         'cashbook_entries': cashbook_entries,
+        'date': date,
+        'month': month,
+        'year': year,
     }
 
     return render(request, 'accounts/transaction-by-date.html', context)
