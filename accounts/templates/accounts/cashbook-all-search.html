@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Remittance Form{% endblock %}
-{% block heading %}Remittance Form{% endblock %}
+{% block title %}All Cashbooks{% endblock %}
+{% block heading %}Enter Financial Year{% endblock %}
 
 {% block content %}
     <div class="max-w-full mx-auto bg-gray-200 p-6 rounded-lg shadow-lg">
@@ -9,7 +9,8 @@
             {% csrf_token %}
             <div class="mb-4">
                 <label for="id_financial_year" class="font-bold">Financial Year (YYYY-YY)</label>
-                <input type="" name="financial_year" id="id_financial_year" required>
+                <input type="" name="financial_year" id="id_financial_year" class="w-full py-4 px-6 rounded-xl border"
+                       required>
             </div>
             <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Generate</button>
         </form>

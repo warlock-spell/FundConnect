@@ -145,10 +145,10 @@ def create_branch_entry(request):
         month = request.POST.get('month')
         year = request.POST.get('year')
 
-        branches = Branch.objects.all()
-        controller = Controller.objects.all().first()
-        members = Member.objects.all()
-        members = members.filter(active_user=True)
+        # branches = Branch.objects.all()
+        # controller = Controller.objects.all().first()
+        # members = Member.objects.all()
+        # members = members.filter(active_user=True)
 
         return redirect(reverse('accounts:cashbook-branches-list', kwargs={'year': year, 'month': month, 'date': date}))
     else:
@@ -172,6 +172,7 @@ def list_branch_for_entry(request, date, month, year):
     return render(request, 'accounts/branch-remittance-entry-list.html', context)
 
 
+# TODO: interest calculations, MARCH entry, CLOSING BALANCE entry, DIVIDEND entry
 def create_entry_for_selected_branch(request, pk, date, month, year):
     branch = get_object_or_404(Branch, id=pk)
     controller = Controller.objects.all().first()
