@@ -20,4 +20,5 @@ urlpatterns = [
     path('branch/<int:date>/<int:month>/<int:year>/', views.list_branch_for_entry, name='cashbook-branches-list'),
     path('branch/<int:pk>/<int:date>/<int:month>/<int:year>/', views.create_entry_for_selected_branch,
          name='cashbook-entry-selected-branch'),
+    path('apply-for-loan/', views.loan_application, name='loan-apply'),
 ]

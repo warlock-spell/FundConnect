@@ -6,6 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static "css/output.css" %}">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
 </head>
 <body>
 {% for cashbook in cashbooks %}
@@ -34,43 +44,55 @@
                         <th>Deposits Debit</th>
                         <th>Loan Credit</th>
                         <th>Loan Debit</th>
+                        <th>Shares Credit</th>
+                        <th>Shares Debit</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for entry in cashbook_entries %}
                         {% if entry.cashbook.member.id == cashbook.member.id %}
                             <tr>
-                                <td class="text-center">{{ entry.date }}/{{ entry.month }}/{{ entry.year }}</td>
-                                <td class="text-center">{{ entry.fund_type }}</td>
+                                <td>{{ entry.date }}/{{ entry.month }}/{{ entry.year }}</td>
+                                <td>{{ entry.fund_type }}</td>
                                 {% if entry.refund_on_exit_amount > 0 %}
-                                    <td class="text-center">{{ entry.refund_on_exit_amount }}</td>
-                                    <td class="text-center">---</td>
+                                    <td>{{ entry.refund_on_exit_amount }}</td>
+                                    <td>---</td>
                                 {% elif entry.refund_on_exit_amount == 0 %}
-                                    <td class="text-center">---</td>
-                                    <td class="text-center">---</td>
+                                    <td>---</td>
+                                    <td>---</td>
                                 {% else %}
-                                    <td class="text-center">---</td>
-                                    <td class="text-center">{{ entry.refund_on_exit_amount }}</td>
+                                    <td>---</td>
+                                    <td>{{ entry.refund_on_exit_amount }}</td>
                                 {% endif %}
                                 {% if entry.deposits_amount > 0 %}
-                                    <td class="text-center">{{ entry.deposits_amount }}</td>
-                                    <td class="text-center">---</td>
+                                    <td>{{ entry.deposits_amount }}</td>
+                                    <td>---</td>
                                 {% elif entry.deposits_amount == 0 %}
-                                    <td class="text-center">---</td>
-                                    <td class="text-center">---</td>
+                                    <td>---</td>
+                                    <td>---</td>
                                 {% else %}
-                                    <td class="text-center">---</td>
-                                    <td class="text-center">{{ entry.deposits_amount }}</td>
+                                    <td>---</td>
+                                    <td>{{ entry.deposits_amount }}</td>
                                 {% endif %}
                                 {% if entry.loan_amount < 0 %}
-                                    <td class="text-center">{{ entry.loan_amount }}</td>
-                                    <td class="text-center">---</td>
+                                    <td>{{ entry.loan_amount }}</td>
+                                    <td>---</td>
                                 {% elif entry.loan_amount == 0 %}
-                                    <td class="text-center">---</td>
-                                    <td class="text-center">---</td>
+                                    <td>---</td>
+                                    <td>---</td>
                                 {% else %}
-                                    <td class="text-center">---</td>
-                                    <td class="text-center">{{ entry.loan_amount }}</td>
+                                    <td>---</td>
+                                    <td>{{ entry.loan_amount }}</td>
+                                {% endif %}
+                                {% if entry.shares_amount > 0 %}
+                                    <td>{{ entry.shares_amount }}</td>
+                                    <td>---</td>
+                                {% elif entry.shares_amount == 0 %}
+                                    <td>---</td>
+                                    <td>---</td>
+                                {% else %}
+                                    <td>---</td>
+                                    <td>{{ entry.shares_amount }}</td>
                                 {% endif %}
                             </tr>
                         {% endif %}

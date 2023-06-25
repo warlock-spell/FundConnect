@@ -1,12 +1,14 @@
 # views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from .forms import CashBookEntryForm
+from .forms import CashBookEntryForm, LoanForm
 from .models import CashBookEntry, Cashbook
 from branch.models import Branch
 from dashboard.models import Controller
 from member.models import Member
 from django.db.models import Q, F, ExpressionWrapper, IntegerField, Prefetch
+from .calculations import loan_emi, interest, apply_loan
+from django.contrib import messages
 
 
 def home(request):
@@ -117,6 +119,26 @@ def search_transactions(request):
         return render(request, 'accounts/transaction-search.html')
 
 
+def loan_application(request):
+    if request.method == 'POST':
+        form = LoanForm(request.POST)
+        if form.is_valid():
+            loan = form.save(commit=False)
+            controller = Controller.objects.all().first()
+            if apply_loan.check_eligibility(loan.allotted_to_member, controller, loan):
+                apply_loan.allot_shares(loan.allotted_to_member, controller, loan)
+                loan.save()
+                return redirect('core:home')
+            else:
+                messages.error(request, "Loan eligibility check failed.")
+        else:
+            messages.error(request, "Invalid form submission.")
+    else:
+        form = LoanForm()
+
+    return render(request, 'accounts/loan-application.html', {'form': form})
+
+
 def create_branch_entry(request):
     if request.method == 'POST':
         date = request.POST.get('date')
@@ -158,23 +180,26 @@ def create_entry_for_selected_branch(request, pk, date, month, year):
 
     # Create a cashbook entry for each member of the branch
     for member in members:
+
         # if the month is April
         if month == 4:
-            # Opening balance Entry
-            # month entry
-            pass
-        # if the month is March
-        elif month == 3:
-            # month entry
-            # refund on exit interest entry
-            # deposit interest entry
-            # dividend entry
-            # Closing balance Entry
-            pass
-        else:
 
-            # loan emi
-            emi = 0
+            # Opening balance Entry
+            # not meant to be saved in the database
+            cashbook_entry = CashBookEntry(
+                member=member,
+                date=1,
+                month=4,
+                year=year,
+                fund_type='OPENING BALANCE',
+                refund_on_exit_amount=member.refund_on_exit,
+                deposits_amount=member.deposits,
+                loan_amount=member.loan,
+            )
+            cashbook_entry.save()
+
+            # April month entry
+            emi = loan_emi.calculate_loan_emi(0, 0, 0)
 
             cashbook_entry = CashBookEntry(
                 member=member,
@@ -188,6 +213,42 @@ def create_entry_for_selected_branch(request, pk, date, month, year):
             )
 
             # make changes to database
+            member.refund_on_exit += controller.refund_on_exit_monthly_deposit
+            member.deposits += member.wish_to_deposit
+            member.loan -= emi
+            member.save()
+
+            cashbook_entry.save()
+
+        # if the month is March
+        elif month == 3:
+            # month entry
+            # refund on exit interest entry
+            # deposit interest entry
+            # dividend entry
+            # Closing balance Entry
+            pass
+        else:
+
+            # loan emi
+            emi = loan_emi.calculate_loan_emi(0, 0, 0)
+
+            cashbook_entry = CashBookEntry(
+                member=member,
+                date=date,
+                month=month,
+                year=year,
+                fund_type='SALARY',
+                refund_on_exit_amount=controller.refund_on_exit_monthly_deposit,
+                deposits_amount=member.wish_to_deposit,
+                loan_amount=emi,
+            )
+
+            # make changes to database
+            member.refund_on_exit += controller.refund_on_exit_monthly_deposit
+            member.deposits += member.wish_to_deposit
+            member.loan -= emi
+            member.save()
 
             cashbook_entry.save()
 

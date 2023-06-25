@@ -1,6 +1,8 @@
 from django.db import models
 from member.models import Member
 from django.core.validators import RegexValidator
+from dashboard.models import Controller
+from .calculations import helper_functions
 
 
 class Cashbook(models.Model):
@@ -21,8 +23,8 @@ class Cashbook(models.Model):
 
 class CashBookEntry(models.Model):
     FUND_TYPES = [
-        ('OPENING_BALANCE', 'Opening_Balance'),
-        ('CLOSING_BALANCE', 'Closing_Balance'),
+        ('OPENING BALANCE', 'Opening_Balance'),
+        ('CLOSING BALANCE', 'Closing_Balance'),
         ('INTEREST', 'Interest'),
         ('DIVIDEND', 'Dividend'),
         ('SALARY', 'Salary'),
@@ -31,6 +33,8 @@ class CashBookEntry(models.Model):
         ('CHEQUE', 'Cheque'),
         ('SERVICE_FEE', 'Service Fee'),
         ('OTHER', 'Other'),
+        ('LOAN', 'Loan'),
+        ('SHARES', 'Shares'),
     ]
 
     date = models.IntegerField()
@@ -40,6 +44,7 @@ class CashBookEntry(models.Model):
     refund_on_exit_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     deposits_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     loan_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    shares_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     cashbook = models.ForeignKey(Cashbook, on_delete=models.CASCADE, related_name='entries')
 
@@ -48,11 +53,7 @@ class CashBookEntry(models.Model):
 
     def save(self, *args, **kwargs):
         # Automatically determine the cashbook based on the financial year
-        months_of_prev_financial_year = ['01', '02', '03']
-        if self.month in months_of_prev_financial_year:
-            financial_year = f"{int(str(self.year)[:4]) - 1}-{str(self.year)[2:]}"
-        else:
-            financial_year = f"{str(self.year)[:4]}-{int(str(self.year)[2:]) + 1}"
+        financial_year = helper_functions.get_financial_year(self.month, self.year)
 
         cashbook, created = Cashbook.objects.get_or_create(
             financial_year=financial_year,
@@ -60,3 +61,13 @@ class CashBookEntry(models.Model):
         )
         self.cashbook = cashbook
         super().save(*args, **kwargs)
+
+
+class Loan(models.Model):
+    date = models.IntegerField()
+    month = models.IntegerField()
+    year = models.IntegerField()
+    ask_loan_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    allotted_loan_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    allotted_to_member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='loans')
+    number_of_installments = models.IntegerField(default=120)
