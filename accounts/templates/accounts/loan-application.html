@@ -1,14 +1,49 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Apply For Loan{% endblock %}
-{% block heading %}Apply for loan{% endblock %}
+{% block title %}Loan Form{% endblock %}
+{% block heading %}Loan Form{% endblock %}
 
 {% block content %}
     <div class="max-w-full mx-auto bg-gray-200 p-6 rounded-lg shadow-lg">
         <form method="post" action=".">
             {% csrf_token %}
-            {{ form.as_p }}
 
+            <div class="flex flex-cols-3 gap-4 w-full">
+                <div class="flex flex-col mb-4 w-full">
+                    <label for="{{ form.date.id_for_label }}" class="font-bold">Date</label>
+                    {{ form.date }}
+                </div>
+                <div class="flex flex-col mb-4 w-full">
+                    <label for="{{ form.month.id_for_label }}" class="font-bold">Month</label>
+                    {{ form.month }}
+                </div>
+                <div class="flex flex-col mb-4 w-full">
+                    <label for="{{ form.year.id_for_label }}" class="font-bold">Year</label>
+                    {{ form.year }}
+                </div>
+            </div>
+
+            <div class="flex flex-cols-3 gap-4 w-full">
+                <div class="flex flex-col mb-4 w-full">
+                    <label for="{{ form.ask_loan_amount.id_for_label }}" class="font-bold">Loan Amount</label>
+                    {{ form.ask_loan_amount }}
+                </div>
+                <div class="flex flex-col mb-4 w-full">
+                    <label for="{{ form.allotted_to_member.id_for_label }}" class="font-bold">Membership No.</label>
+                    {{ form.allotted_to_member }}
+                </div>
+                <div class="flex flex-col mb-4 w-full">
+                    <label for="{{ form.number_of_installments.id_for_label }}" class="font-bold">Number of
+                        Installments</label>
+                    {{ form.number_of_installments }}
+                </div>
+            </div>
+
+            {% if form.errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
             {% if messages %}
                 <div class="mb-3 p-6 bg-red-100 rounded-xl">
                     {% for message in messages %}
