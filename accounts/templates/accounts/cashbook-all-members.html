@@ -1,0 +1,104 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+</head>
+<body>
+{% for cashbook in cashbooks %}
+    {% if cashbook.member.active_user %}
+        <div class="max-w-full mx-auto p-6 rounded-lg">
+            <div class="flex justify-between mb-6">
+                <div>
+                    <h2 class="text-2xl font-semibold">{{ cashbook.member.name }}</h2>
+                    <p class="text-gray-500">Membership No.: {{ cashbook.member.id }}</p>
+                    <p class="text-gray-500">Branch: {{ cashbook.member.branch }}</p>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-semibold">Financial Year: {{ financial_year }}</h2>
+                </div>
+            </div>
+
+            {% if cashbook_entries %}
+                <table class="w-full mt-6">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Transaction Particulars</th>
+                        <th>NRD Credit</th>
+                        <th>NRD Debit</th>
+                        <th>Deposits Credit</th>
+                        <th>Deposits Debit</th>
+                        <th>Loan Credit</th>
+                        <th>Loan Debit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entry in cashbook_entries %}
+                        {% if entry.cashbook.member.id == cashbook.member.id %}
+                            <tr>
+                                <td class="text-center">{{ entry.date }}/{{ entry.month }}/{{ entry.year }}</td>
+                                <td class="text-center">{{ entry.fund_type }}</td>
+                                {% if entry.refund_on_exit_amount > 0 %}
+                                    <td class="text-center">{{ entry.refund_on_exit_amount }}</td>
+                                    <td class="text-center">---</td>
+                                {% elif entry.refund_on_exit_amount == 0 %}
+                                    <td class="text-center">---</td>
+                                    <td class="text-center">---</td>
+                                {% else %}
+                                    <td class="text-center">---</td>
+                                    <td class="text-center">{{ entry.refund_on_exit_amount }}</td>
+                                {% endif %}
+                                {% if entry.deposits_amount > 0 %}
+                                    <td class="text-center">{{ entry.deposits_amount }}</td>
+                                    <td class="text-center">---</td>
+                                {% elif entry.deposits_amount == 0 %}
+                                    <td class="text-center">---</td>
+                                    <td class="text-center">---</td>
+                                {% else %}
+                                    <td class="text-center">---</td>
+                                    <td class="text-center">{{ entry.deposits_amount }}</td>
+                                {% endif %}
+                                {% if entry.loan_amount < 0 %}
+                                    <td class="text-center">{{ entry.loan_amount }}</td>
+                                    <td class="text-center">---</td>
+                                {% elif entry.loan_amount == 0 %}
+                                    <td class="text-center">---</td>
+                                    <td class="text-center">---</td>
+                                {% else %}
+                                    <td class="text-center">---</td>
+                                    <td class="text-center">{{ entry.loan_amount }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No cashbook entries found.</p>
+            {% endif %}
+        </div>
+        <br>
+        <div class="flex justify-between mb-6">
+            <div>
+                <p class="px-6">TREASURER</p>
+            </div>
+            <div>
+                <h2 class="px-6">HON. SECRETARY</h2>
+            </div>
+        </div>
+        <br>
+        <div class="py-4 px-6 text-sm text-bold">
+            <p>NOTE :- IN CASE OF ANY DISCREPANCY, PLEASE POINT OUT THE SAME TO THE SOCIETY</p>
+            <P>IN 15 DAYS, OTHERWISE IT WILL BE TREATED AS CORRECT AND FINAL</P>
+        </div>
+
+        <!-- Add a page break after each member's data -->
+        <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+</body>
+</html>

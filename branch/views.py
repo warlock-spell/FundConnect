@@ -74,6 +74,7 @@ def remove_branch(request):
 
 def remittance_form_view(request):
     if request.method == 'POST':
+        date = request.POST.get('date')
         month = request.POST.get('month')
         year = request.POST.get('year')
 
@@ -95,6 +96,7 @@ def remittance_form_view(request):
                                              2)  # will change later, according to controller.loan_interest_period
 
         context = {
+            'date': date,
             'month': month,
             'year': year,
             'branches': branches,

@@ -8,6 +8,10 @@
         <form method="POST" action="." target="_blank">
             {% csrf_token %}
             <div class="mb-4">
+                <label for="id_date" class="font-bold">Date (MM)</label>
+                <input type="number" name="date" id="id_date" required>
+            </div>
+            <div class="mb-4">
                 <label for="id_month" class="font-bold">Month (MM)</label>
                 <input type="number" name="month" id="id_month" required>
             </div>

@@ -21,7 +21,12 @@ class Cashbook(models.Model):
 
 class CashBookEntry(models.Model):
     FUND_TYPES = [
+        ('OPENING_BALANCE', 'Opening_Balance'),
+        ('CLOSING_BALANCE', 'Closing_Balance'),
         ('INTEREST', 'Interest'),
+        ('DIVIDEND', 'Dividend'),
+        ('SALARY', 'Salary'),
+        ('DEPOSIT', 'Deposit'),
         ('ADJUSTMENT', 'Adjustment'),
         ('CHEQUE', 'Cheque'),
         ('SERVICE_FEE', 'Service Fee'),

@@ -15,4 +15,9 @@ urlpatterns = [
     path('<int:pk>/<str:financial_year>/cashbook/', views.view_cashbook, name='cashbook-view'),
     path('transactions/', views.search_transactions, name='transactions-search'),
     path('<str:year>/<str:month>/<str:date>/transactions/', views.transaction_by_date, name='transactions-view'),
+    path('all/', views.view_all_cashbook, name='cashbook-all'),
+    path('branch/', views.create_branch_entry, name='branch-cashbook-create'),
+    path('branch/<int:date>/<int:month>/<int:year>/', views.list_branch_for_entry, name='cashbook-branches-list'),
+    path('branch/<int:pk>/<int:date>/<int:month>/<int:year>/', views.create_entry_for_selected_branch,
+         name='cashbook-entry-selected-branch'),
 ]
