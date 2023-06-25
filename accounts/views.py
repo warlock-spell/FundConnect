@@ -15,6 +15,7 @@ def home(request):
     return render(request, 'accounts/cashbook-home.html')
 
 
+# Save to database
 def create_cashbook_entry(request):
     if request.method == 'POST':
         form = CashBookEntryForm(request.POST)

@@ -17,13 +17,14 @@ def check_eligibility(member, controller, loan):
 
 def allot_shares(member, controller, loan):
     loan_amount = loan.ask_loan_amount
+    cumulative_loan_amount = loan_amount + member.loan
     current_share_holding = member.share_holding
     share_loan_ratio = controller.loan_share_holding_ratio_limit
 
-    if current_share_holding * share_loan_ratio >= loan_amount:
+    if current_share_holding * share_loan_ratio >= cumulative_loan_amount:
         loan.allotted_loan_amount = loan_amount
     else:
-        increment_share_holding = (loan_amount / share_loan_ratio) - current_share_holding
+        increment_share_holding = (cumulative_loan_amount / share_loan_ratio) - current_share_holding
         loan.allotted_loan_amount = loan_amount - increment_share_holding
         member.share_holding += increment_share_holding
         member.save()
