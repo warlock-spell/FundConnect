@@ -28,7 +28,8 @@
                         <td class="border border-gray-500 px-4 py-2">{{ branch.location }}</td>
                         <td class="border border-gray-500 px-4 py-2">
                             <a href="{% url 'accounts:cashbook-entry-selected-branch' branch.id date month year %}"
-                               class="inline-block bg-blue-500 hover:bg-blue-700 text-white py-2 px-6 rounded">Create</a>
+                               class="inline-block bg-blue-500 hover:bg-blue-700 text-white py-2 px-6 rounded">Post
+                                Remittance</a>
                         </td>
                     </tr>
                 {% endfor %}
