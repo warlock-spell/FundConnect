@@ -7,7 +7,7 @@ from branch.models import Branch
 from dashboard.models import Controller
 from member.models import Member
 from django.db.models import Q, F, ExpressionWrapper, IntegerField, Prefetch
-from .calculations import loan_emi, interest, apply_loan
+from .calculations import loan_emi, interest, apply_loan, helper_functions
 from django.contrib import messages
 
 
@@ -171,10 +171,25 @@ def create_branch_entry(request):
 
 def list_branch_for_entry(request, date, month, year):
     branches = Branch.objects.all()
+    branches = branches.filter(members__isnull=False).distinct()
     controller = Controller.objects.all().first()
     members = Member.objects.all()
     members = members.filter(active_user=True)
 
+    financial_year = helper_functions.get_financial_year(month, year)
+    branch_remittance_posted = {}
+    for branch in branches:
+        if Member.objects.filter(branch_id=branch.id).exists():
+            # Retrieve the first member's cashbook
+            member = Member.objects.filter(branch_id=branch.id).first()
+            cashbook_entry = CashBookEntry.objects.filter(
+                member__id=member.id,
+                cashbook__financial_year=financial_year
+            ).filter(date=date, month=month, year=year).first()
+            if cashbook_entry is None:
+                branch_remittance_posted[branch.id] = False
+            else:
+                branch_remittance_posted[branch.id] = bool(cashbook_entry.remittance_posted)
     context = {
         'branches': branches,
         'controller': controller,
@@ -182,6 +197,7 @@ def list_branch_for_entry(request, date, month, year):
         'date': date,
         'month': month,
         'year': year,
+        'branch_remittance_posted': branch_remittance_posted,
     }
     return render(request, 'accounts/branch-remittance-entry-list.html', context)
 
@@ -210,6 +226,7 @@ def create_entry_for_selected_branch(request, pk, date, month, year):
                 refund_on_exit_amount=member.refund_on_exit,
                 deposits_amount=member.deposits,
                 loan_amount=member.loan,
+
             )
             cashbook_entry.save()
 
@@ -225,13 +242,8 @@ def create_entry_for_selected_branch(request, pk, date, month, year):
                 refund_on_exit_amount=controller.refund_on_exit_monthly_deposit,
                 deposits_amount=member.wish_to_deposit,
                 loan_amount=emi,
+                remittance_posted=True,
             )
-
-            # make changes to database
-            member.refund_on_exit += controller.refund_on_exit_monthly_deposit
-            member.deposits += member.wish_to_deposit
-            member.loan -= emi
-            member.save()
 
             cashbook_entry.save()
 
@@ -257,13 +269,8 @@ def create_entry_for_selected_branch(request, pk, date, month, year):
                 refund_on_exit_amount=controller.refund_on_exit_monthly_deposit,
                 deposits_amount=member.wish_to_deposit,
                 loan_amount=emi,
+                remittance_posted=True,
             )
-
-            # make changes to database
-            member.refund_on_exit += controller.refund_on_exit_monthly_deposit
-            member.deposits += member.wish_to_deposit
-            member.loan -= emi
-            member.save()
 
             cashbook_entry.save()
 
