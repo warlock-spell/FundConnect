@@ -267,4 +267,9 @@ def create_entry_for_selected_branch(request, pk, date, month, year):
 
             cashbook_entry.save()
 
-    return redirect(reverse('accounts:cashbook-home'))
+    # Log success message
+    branch_name = branch.name
+    success_message = f"Successfully posted for {branch_name}"
+    messages.success(request, success_message, extra_tags="success")
+
+    return redirect(reverse('accounts:cashbook-branches-list', kwargs={'year': year, 'month': month, 'date': date}))

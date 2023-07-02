@@ -29,8 +29,16 @@
 <div class="flex h-screen">
     {% include "core/includes/sidebar.html" %}
     <div class="flex-1 p-8">
-        <!-- Main content here -->
-        <h1 class="text-2xl font-bold mb-4">{% block heading %} {% endblock %}</h1>
+        <h1 class="text-2xl font-bold mb-4">{% block heading %}{% endblock %}</h1>
+        {% if messages %}
+            <div class="flex flex-col items-center justify-center mb-8">
+                <div class="mb-2">
+                    {% block notification %}{% endblock %}
+                </div>
+            </div>
+        {% endif %}
+
+
         <!-- Rest of your page content goes here -->
         <div class="content">
             <div class="px-6 py-6">

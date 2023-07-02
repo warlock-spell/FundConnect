@@ -2,8 +2,31 @@
 
 {% block title %}Entry for Branch{% endblock %}
 {% block heading %}Entry for Branch for {{ date }}-{{ month }}-{{ year }}{% endblock %}
+{% if messages %}
+    {% block notification %}
+        <div id="sticky-message-container"
+             class="fixed inset-x-0 flex items-center justify-center z-1 ">
+            <div class="bg-green-500 text-white rounded font-bold text-center py-2 px-4">
+                {% for message in messages %}
+                    <div class="mb-2">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <script>
+            setTimeout(function () {
+                var stickyMessageContainer = document.getElementById('sticky-message-container');
+                stickyMessageContainer.remove();
+            }, 1000);
+        </script>
+    {% endblock %}
+{% endif %}
 
 {% block content %}
+
+
     <div class="container mx-auto px-4 py-8 max-w-full mx-auto bg-gray-200 rounded-lg shadow-lg">
         {#        <h1 class="text-3xl font-bold mb-6">Edit Branch</h1>#}
 
@@ -35,7 +58,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-
         </ul>
     </div>
 {% endblock %}
